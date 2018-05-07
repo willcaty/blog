@@ -35,9 +35,11 @@ def search_view(request):
 def detail(request, article_id):
     article = Article.objects.get(pk=article_id)
     comment = Comment.objects.filter(article=article_id)
-    comment_count = len(comment)
+    #comment.count()  #速度最快
+    #comment_count = len(comment)    #速度其次
+    #{{ comment|length }} 速度最慢
     return render(request, 'blog/single.html',
-                  context={'article': article, 'comment_count': comment_count, 'comment': comment})
+                  context={'article': article,  'comment': comment})
 
 
 @login_required
@@ -102,10 +104,12 @@ def logout_view(request):
     auth.logout(request)
     return HttpResponseRedirect('/')
 
+
 @login_required
 def add_page(request):
     category = Category.objects.all()
-    return render(request, 'blog/add.html', context={'category':category})
+    return render(request, 'blog/add.html', context={'category': category})
+
 
 @login_required
 def add_article(request):
@@ -114,7 +118,7 @@ def add_article(request):
         body = request.POST['body']
         abstract = request.POST['abstract']
         category = request.POST['category']
-        category= Category.objects.get(id=category)
+        category = Category.objects.get(id=category)
         article = Article(title=title, body=body, abstract=abstract, category=category)
         article.save()
 

@@ -41,10 +41,9 @@
                     <hr>
 
                     <h2><i class="fa fa-comments"></i> {{ comment|length }} Comments</h2>
-                    {% for comment in comment %}
+                    {% for comment in min_comment %}
                         <article class="comment">
                             <header class="clearfix">
-
                                 <div class="meta">
                                     <h3>{{ comment.name }}</h3>
                                     <span class="date">

@@ -4,17 +4,18 @@ from django.contrib.auth.models import User
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.views.decorators.cache import cache_page
 
 from blog.forms import UserForm
 from .models import Article, Comment, Category
 
 
 # Create your views here.
-
+#@cache_page(60 * 15)
 def index(request):
-    article_list = Article.objects.all()
+    article_list = Article.objects.all().order_by('-create_at')
     category = Category.objects.all()
-    paginator = Paginator(article_list, 4, 1)  # 每页4条少于2条合并上一个页
+    paginator = Paginator(article_list, 4, 1)  # 每页4条少于1条合并上一个页
     page = request.GET.get('page')
     try:
         article_list = paginator.page(page)
@@ -24,22 +25,23 @@ def index(request):
         article_list = paginator.page(paginator.num_pages)
     return render(request, 'blog/index.html', context={'article': article_list, 'category': category})
 
-
+@cache_page(60 * 15)
 def search_view(request):
     q = request.GET.get('q')
     category = Category.objects.all()
     article_list = Article.objects.filter(title__icontains=q)
     return render(request, 'blog/search.html', context={'article': article_list, 'category': category})
 
-
+@cache_page(60 * 15)
 def detail(request, article_id):
     article = Article.objects.get(pk=article_id)
-    comment = Comment.objects.filter(article=article_id)
+    comment = Comment.objects.filter(article=article_id).order_by('-create_at')
+    min_comment = comment[0:5]
     #comment.count()  #速度最快
     #comment_count = len(comment)    #速度其次
     #{{ comment|length }} 速度最慢
     return render(request, 'blog/single.html',
-                  context={'article': article,  'comment': comment})
+                  context={'article': article,  'comment': comment,'min_comment':min_comment})
 
 
 @login_required

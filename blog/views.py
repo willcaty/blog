@@ -25,14 +25,14 @@ def index(request):
         article_list = paginator.page(paginator.num_pages)
     return render(request, 'blog/index.html', context={'article': article_list, 'category': category})
 
-@cache_page(60 * 15)
+#@cache_page(60 * 15)
 def search_view(request):
     q = request.GET.get('q')
     category = Category.objects.all()
     article_list = Article.objects.filter(title__icontains=q)
     return render(request, 'blog/search.html', context={'article': article_list, 'category': category})
 
-@cache_page(60 * 15)
+#@cache_page(60 * 15)
 def detail(request, article_id):
     article = Article.objects.get(pk=article_id)
     comment = Comment.objects.filter(article=article_id).order_by('-create_at')

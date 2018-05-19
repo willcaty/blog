@@ -22,7 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '_!)(5w-q!@or-x86505n)v55%xpre2b%+n$8x6g8@r&=kmjq36'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*',]
 
@@ -52,16 +52,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'SimpleBlogProject.urls'
 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': 'D:\Workspace\cache',
-        'TIMEOUT': 600,
-        'OPTIONS': {
-            'MAX_ENTRIES': 1000
-        }
-    }
-}
+
 # CACHES = {
 #     'default': {
 #         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
@@ -103,14 +94,14 @@ WSGI_APPLICATION = 'SimpleBlogProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blog',
+        'NAME': 'willcaty',
         'USER': 'root',
-        'PASSWORD': 'centos121',
-        'HOST': 'gloryroad2017',
+        'PASSWORD': 'Gloryroad201710',
+        'HOST': '39.106.41.11',
         'PORT': '3306',
-        'OPTIONS': {
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        }
+        # 'OPTIONS': {
+        #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        # }
     }
 }
 

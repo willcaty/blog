@@ -92,10 +92,10 @@ WSGI_APPLICATION = 'SimpleBlogProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'willcaty',
+        'NAME': 'blog',
         'USER': 'root',
-        'PASSWORD': 'gloryroad2017',
-        'HOST': '39.106.41.11',
+        'PASSWORD': '123456',
+        'HOST': '117.50.30.61',
         'PORT': '3306',
         # 'OPTIONS': {
         #     'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
